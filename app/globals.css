@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global luxe backdrop - Dark mode */
+.dark body {
+  min-height: 100vh;
+  background:
+    linear-gradient(135deg, rgba(12,16,32,0.9), rgba(8,12,24,0.85)),
+    url('https://img.freepik.com/premium-photo/fashion-jewelry-frame-white_102583-344.jpg');
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  color: #e2e8f0;
+}
+
+/* Light mode backdrop */
+body:not(.dark) {
+  min-height: 100vh;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.95), rgba(250,250,252,0.9)),
+    url('https://img.freepik.com/premium-photo/fashion-jewelry-frame-white_102583-344.jpg');
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  color: #1e293b;
+}
+

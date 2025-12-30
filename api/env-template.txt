@@ -1,0 +1,10 @@
+# PostgreSQL Database Connection
+# Format: postgresql://USERNAME:PASSWORD@HOST:PORT/DATABASE?schema=public
+# Example for local PostgreSQL:
+DATABASE_URL="postgresql://postgres:your_password@localhost:5432/jewelry_db?schema=public"
+
+# CORS Origin (Frontend URL)
+ORIGIN="http://localhost:5173"
+
+# API Server Port
+PORT=4000
