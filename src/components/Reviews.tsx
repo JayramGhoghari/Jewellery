@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import { Star, ThumbsUp, MessageSquare, User } from 'lucide-react';
+import { Star, ThumbsUp, MessageSquare, User, Sparkles, ArrowRight } from 'lucide-react';
 
 interface Review {
   id: number;
@@ -105,14 +105,27 @@ export default function Reviews() {
   }));
 
   return (
-    <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
+    <div className="relative overflow-hidden bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 min-h-screen py-20">
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 -left-40 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-8 relative z-10">
         {/* Header Section */}
-        <div className="mb-12 text-center">
-          <h1 className="text-4xl md:text-5xl font-light tracking-wide text-slate-900 dark:text-slate-50 mb-4">
-            Reviews & Ratings
+        <div className="mb-16 text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800/50 border border-cyan-500/30 backdrop-blur-sm mb-6">
+            <Sparkles className="w-4 h-4 text-cyan-400" />
+            <span className="text-xs font-light tracking-widest text-cyan-400 uppercase">Customer Reviews</span>
+          </div>
+          <h1 className="text-6xl lg:text-5xl font-light text-white leading-tight tracking-tight mb-4">
+            Reviews &
+            <span className="block bg-gradient-to-r from-cyan-400 via-blue-400 to-cyan-300 bg-clip-text lg:text-5xl">
+              Ratings
+            </span>
           </h1>
-          <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+          <div className="h-1 w-20 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full mx-auto mt-4"></div>
+          <p className="text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto mt-8 font-light">
             See what our customers are saying about our jewelry collection
           </p>
         </div>
@@ -120,9 +133,9 @@ export default function Reviews() {
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Left Sidebar - Rating Summary */}
           <div className="lg:col-span-1">
-            <div className="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6 mb-6">
+            <div className="bg-slate-800/50 backdrop-blur-sm border border-cyan-500/30 rounded-2xl p-6 mb-6">
               <div className="text-center mb-6">
-                <div className="text-5xl font-light text-slate-900 dark:text-slate-50 mb-2">
+                <div className="text-6xl font-light text-white mb-2 bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
                   {averageRating.toFixed(1)}
                 </div>
                 <div className="flex justify-center gap-1 mb-2">
@@ -131,13 +144,13 @@ export default function Reviews() {
                       key={star}
                       className={`w-6 h-6 ${
                         star <= Math.round(averageRating)
-                          ? "fill-yellow-400 text-yellow-400"
-                          : "text-slate-300 dark:text-slate-600"
+                          ? "fill-cyan-400 text-cyan-400"
+                          : "text-slate-600"
                       }`}
                     />
                   ))}
                 </div>
-                <p className="text-sm text-slate-600 dark:text-slate-400">
+                <p className="text-sm text-slate-400 font-light">
                   Based on {reviews.length} reviews
                 </p>
               </div>
@@ -146,16 +159,16 @@ export default function Reviews() {
                 {ratingDistribution.map(({ rating, count, percentage }) => (
                   <div key={rating} className="flex items-center gap-3">
                     <div className="flex items-center gap-1 w-20">
-                      <span className="text-sm text-slate-600 dark:text-slate-400">{rating}</span>
-                      <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                      <span className="text-sm text-slate-400 font-light">{rating}</span>
+                      <Star className="w-4 h-4 fill-cyan-400 text-cyan-400" />
                     </div>
-                    <div className="flex-1 bg-slate-200 dark:bg-slate-700 rounded-full h-2">
+                    <div className="flex-1 bg-slate-700/50 rounded-full h-2">
                       <div
-                        className="bg-yellow-400 h-2 rounded-full transition-all"
+                        className="bg-gradient-to-r from-cyan-400 to-blue-500 h-2 rounded-full transition-all"
                         style={{ width: `${percentage}%` }}
                       />
                     </div>
-                    <span className="text-sm text-slate-600 dark:text-slate-400 w-8 text-right">
+                    <span className="text-sm text-slate-400 font-light w-8 text-right">
                       {count}
                     </span>
                   </div>
@@ -165,9 +178,14 @@ export default function Reviews() {
 
             <button
               onClick={() => setShowForm(!showForm)}
-              className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white py-3 px-6 rounded-lg font-light tracking-wide hover:from-cyan-600 hover:to-blue-700 transition-all duration-300 shadow-lg"
+              className="group relative w-full px-8 py-4 rounded-lg font-light uppercase tracking-widest text-sm overflow-hidden"
             >
-              Write a Review
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 opacity-100 group-hover:opacity-90 transition-opacity"></div>
+              <div className="relative flex items-center justify-center gap-2 text-slate-900">
+                <MessageSquare className="w-4 h-4" />
+                Write a Review
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </div>
             </button>
           </div>
 
@@ -175,37 +193,39 @@ export default function Reviews() {
           <div className="lg:col-span-2">
             {/* Review Form */}
             {showForm && (
-              <div className="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6 mb-6">
-                <h2 className="text-2xl font-light mb-4 text-slate-900 dark:text-slate-50">
+              <div className="bg-slate-800/50 backdrop-blur-sm border border-cyan-500/30 rounded-2xl p-6 mb-6">
+                <h2 className="text-2xl font-light mb-6 text-white">
                   Write Your Review
                 </h2>
                 <form onSubmit={handleSubmitReview} className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                    <label className="block text-sm font-light text-slate-300 mb-2 uppercase tracking-widest">
                       Your Name
                     </label>
                     <input
                       type="text"
                       value={newReview.userName}
                       onChange={(e) => setNewReview({ ...newReview, userName: e.target.value })}
-                      className="w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-50 focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-cyan-500/30 rounded-lg bg-slate-900/50 text-white placeholder-slate-500 focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all backdrop-blur-sm"
+                      placeholder="Enter your name"
                       required
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                    <label className="block text-sm font-light text-slate-300 mb-2 uppercase tracking-widest">
                       Product Name
                     </label>
                     <input
                       type="text"
                       value={newReview.productName}
                       onChange={(e) => setNewReview({ ...newReview, productName: e.target.value })}
-                      className="w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-50 focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-cyan-500/30 rounded-lg bg-slate-900/50 text-white placeholder-slate-500 focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all backdrop-blur-sm"
+                      placeholder="Product name"
                       required
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                    <label className="block text-sm font-light text-slate-300 mb-2 uppercase tracking-widest">
                       Rating
                     </label>
                     <div className="flex gap-2">
@@ -216,13 +236,13 @@ export default function Reviews() {
                           onClick={() => setNewReview({ ...newReview, rating: star })}
                           onMouseEnter={() => setHoveredRating(star)}
                           onMouseLeave={() => setHoveredRating(0)}
-                          className="focus:outline-none"
+                          className="focus:outline-none transition-transform hover:scale-110"
                         >
                           <Star
                             className={`w-8 h-8 transition-colors ${
                               star <= (hoveredRating || newReview.rating)
-                                ? "fill-yellow-400 text-yellow-400"
-                                : "text-slate-300 dark:text-slate-600"
+                                ? "fill-cyan-400 text-cyan-400"
+                                : "text-slate-600"
                             }`}
                           />
                         </button>
@@ -230,23 +250,28 @@ export default function Reviews() {
                     </div>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                    <label className="block text-sm font-light text-slate-300 mb-2 uppercase tracking-widest">
                       Your Review
                     </label>
                     <textarea
                       value={newReview.comment}
                       onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
                       rows={4}
-                      className="w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-50 focus:ring-2 focus:ring-cyan-500 focus:border-transparent resize-none"
+                      className="w-full px-4 py-3 border border-cyan-500/30 rounded-lg bg-slate-900/50 text-white placeholder-slate-500 focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all resize-none backdrop-blur-sm"
+                      placeholder="Share your experience..."
                       required
                     />
                   </div>
-                  <div className="flex gap-3">
+                  <div className="flex gap-3 pt-2">
                     <button
                       type="submit"
-                      className="flex-1 bg-gradient-to-r from-cyan-500 to-blue-600 text-white py-2 px-6 rounded-lg font-light tracking-wide hover:from-cyan-600 hover:to-blue-700 transition-all duration-300"
+                      className="group relative flex-1 px-8 py-3 rounded-lg font-light uppercase tracking-widest text-sm overflow-hidden"
                     >
-                      Submit Review
+                      <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 opacity-100 group-hover:opacity-90 transition-opacity"></div>
+                      <div className="relative flex items-center justify-center gap-2 text-slate-900">
+                        Submit Review
+                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      </div>
                     </button>
                     <button
                       type="button"
@@ -254,7 +279,7 @@ export default function Reviews() {
                         setShowForm(false);
                         setNewReview({ userName: "", rating: 0, comment: "", productName: "" });
                       }}
-                      className="px-6 py-2 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all"
+                      className="px-6 py-3 border border-cyan-400/50 rounded-lg text-cyan-400 hover:bg-cyan-400/10 transition-all font-light uppercase tracking-widest text-sm"
                     >
                       Cancel
                     </button>
@@ -268,18 +293,18 @@ export default function Reviews() {
               {reviews.map((review) => (
                 <div
                   key={review.id}
-                  className="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6"
+                  className="bg-slate-800/50 backdrop-blur-sm border border-cyan-500/30 rounded-2xl p-6 hover:border-cyan-400/50 transition-all"
                 >
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center text-white font-medium">
+                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center text-slate-900 shadow-lg shadow-cyan-500/20">
                         <User className="w-6 h-6" />
                       </div>
                       <div>
-                        <h3 className="font-medium text-slate-900 dark:text-slate-50">
+                        <h3 className="font-light text-white text-lg">
                           {review.userName}
                         </h3>
-                        <p className="text-sm text-slate-500 dark:text-slate-400">
+                        <p className="text-sm text-cyan-400 font-light">
                           {review.productName}
                         </p>
                       </div>
@@ -291,29 +316,29 @@ export default function Reviews() {
                             key={star}
                             className={`w-4 h-4 ${
                               star <= review.rating
-                                ? "fill-yellow-400 text-yellow-400"
-                                : "text-slate-300 dark:text-slate-600"
+                                ? "fill-cyan-400 text-cyan-400"
+                                : "text-slate-600"
                             }`}
                           />
                         ))}
                       </div>
-                      <p className="text-xs text-slate-500 dark:text-slate-400">
+                      <p className="text-xs text-slate-400 font-light">
                         {review.date}
                       </p>
                     </div>
                   </div>
-                  <p className="text-slate-700 dark:text-slate-300 mb-4">
+                  <p className="text-slate-300 mb-4 font-light leading-relaxed">
                     {review.comment}
                   </p>
                   <div className="flex items-center gap-4">
                     <button
                       onClick={() => handleHelpful(review.id)}
-                      className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors"
+                      className="flex items-center gap-2 text-sm text-slate-400 hover:text-cyan-400 transition-colors font-light"
                     >
                       <ThumbsUp className="w-4 h-4" />
                       <span>Helpful ({review.helpful})</span>
                     </button>
-                    <button className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
+                    <button className="flex items-center gap-2 text-sm text-slate-400 hover:text-cyan-400 transition-colors font-light">
                       <MessageSquare className="w-4 h-4" />
                       <span>Reply</span>
                     </button>
@@ -327,4 +352,3 @@ export default function Reviews() {
     </div>
   );
 }
-
